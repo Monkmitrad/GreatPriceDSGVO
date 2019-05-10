@@ -9,10 +9,12 @@ namespace GreatPriceDSGVO
     /// </summary>
     public partial class MainWindow : Window
     {
+        GameLogic gameLogic;
         public MainWindow()
         {
             InitializeComponent();
-            InitializeGrid();
+            gameLogic = new GameLogic();
+            InitializeGrid();            
         }
 
         private void InitializeGrid()
@@ -93,7 +95,21 @@ namespace GreatPriceDSGVO
                     contentGrid.Children.Add(stackP);
                 }
             }
+
+            //Create and initialize Scoreboard
+            Label scoreLabel = new Label
+            {
+                Content = "Group 1: " + gameLogic.group1.GetPoints() + "\n" + "Group 2: " + gameLogic.group2.GetPoints(),
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Top,
+                FontSize = 14,
+                Margin = new Thickness(100)
+            };
+
+            //add the label to the grid
+            mainGrid.Children.Add(scoreLabel);
         }
+
         void OnClick(object sender, RoutedEventArgs e)
         {
             QuestionButton obj = (QuestionButton)sender;

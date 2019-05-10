@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GameLogic.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="QuestionButton.cs" />
     <Page Include="MainWindow.xaml">

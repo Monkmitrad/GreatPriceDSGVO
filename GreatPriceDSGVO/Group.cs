@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GreatPriceDSGVO
 {
-    class Group
+    public class Group
     {
         private string groupName;
         private int groupPoints;

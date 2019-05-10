@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace GreatPriceDSGVO
 {
@@ -19,6 +20,7 @@ namespace GreatPriceDSGVO
         /// </summary>
         enum Groups { g1,g2 };
         Groups nextGroup;
+        int currentQuestion;
 
         public void StartGame()
         {
@@ -50,6 +52,41 @@ namespace GreatPriceDSGVO
                     nextGroup = Groups.g1;
                     break;
             }
+        }
+
+        //If you have a correct answer, own team will get the points
+        public void Correct()
+        {
+            switch (nextGroup)
+            {
+                case Groups.g1:
+                    group1.AddPoints(100);
+                    break;
+                case Groups.g2:
+                    group2.AddPoints(100);
+                    break;
+            }
+            ChangeTurn();
+        }
+
+        //If you have a wrong answer, opponent team will get the points
+        public void Wrong()
+        {
+            switch (nextGroup)
+            {
+                case Groups.g1:
+                    group2.AddPoints(100);
+                    break;
+                case Groups.g2:
+                    group1.AddPoints(100);
+                    break;
+            }
+            ChangeTurn();
+        }
+
+        public void LoadQuestion(int questionNumber)
+        {
+            currentQuestion = questionNumber;
         }
     }
 }

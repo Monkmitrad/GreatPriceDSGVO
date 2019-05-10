@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GreatPriceDSGVO"
         mc:Ignorable="d"
-        Title="The Great Price" Height="800" Width="1600">
+        Title="The Great Price" Height="900" Width="1600">
     <Grid Name="mainGrid">
         <Grid x:Name="contentGrid" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="100" Background="Azure" ShowGridLines="True">
             <Border Name ="border" BorderThickness="2" BorderBrush="Black" Grid.ColumnSpan="5" Grid.RowSpan="6"/>
@@ -19,5 +19,7 @@
         <Label Name="outputLabel" HorizontalAlignment="Center" Margin="0,100,0,125" VerticalAlignment="Bottom" Width="Auto" FontWeight="Bold" FontSize="25" Height="45">
             Ich bin ein Label
         </Label>
+        <Button Name="wrongButton" Content="Wrong" HorizontalAlignment="Right" Margin="0,0,50,100" VerticalAlignment="Bottom" Width="75"/>
+        <Button Name="correctButton" Content="Correct" HorizontalAlignment="Right" Margin="0,0,200,100" VerticalAlignment="Bottom" Width="75"/>
     </Grid>
 </Window>

@@ -11,5 +11,6 @@ namespace GreatPriceDSGVO
     {
         public Position myPosition;
         public bool isClicked;
+        public int cellIndex;
     }
 }

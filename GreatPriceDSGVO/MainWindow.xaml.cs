@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -10,11 +11,13 @@ namespace GreatPriceDSGVO
     public partial class MainWindow : Window
     {
         GameLogic gameLogic;
+        Label scoreLabel;
         public MainWindow()
         {
             InitializeComponent();
             gameLogic = new GameLogic();
-            InitializeGrid();            
+            InitializeGrid();
+            gameLogic.StartGame();
         }
 
         private void InitializeGrid()
@@ -82,7 +85,8 @@ namespace GreatPriceDSGVO
                             Margin = new Thickness(20),
                             FontSize = 32,
                             myPosition = new Position(colIndex, rowIndex),
-                            isClicked = false
+                            isClicked = false,
+                            cellIndex = cellIndex
                         };
                         btn.Click += new RoutedEventHandler(OnClick);
                         cellIndex++;
@@ -97,23 +101,42 @@ namespace GreatPriceDSGVO
             }
 
             //Create and initialize Scoreboard
-            Label scoreLabel = new Label
+            scoreLabel = new Label
             {
-                Content = "Group 1: " + gameLogic.group1.GetPoints() + "\n" + "Group 2: " + gameLogic.group2.GetPoints(),
                 HorizontalAlignment = HorizontalAlignment.Right,
                 VerticalAlignment = VerticalAlignment.Top,
                 FontSize = 14,
                 Margin = new Thickness(100)
             };
+            ScoreText();
 
             //add the label to the grid
             mainGrid.Children.Add(scoreLabel);
+
+            //add handlers for the correct and wrong button
+            correctButton.ClickMode = ClickMode.Press;
+            wrongButton.ClickMode = ClickMode.Press;
+
+            correctButton.Click += new RoutedEventHandler(CorrectClicked);
+            wrongButton.Click += new RoutedEventHandler(WrongClicked);
+        }
+
+        private void WrongClicked(object sender, RoutedEventArgs e)
+        {
+            gameLogic.Wrong();
+            ScoreText();
+        }
+
+        private void CorrectClicked(object sender, RoutedEventArgs e)
+        {
+            gameLogic.Correct();
+            ScoreText();
         }
 
         void OnClick(object sender, RoutedEventArgs e)
         {
             QuestionButton obj = (QuestionButton)sender;
-            OutputText(obj.myPosition.Output());
+            OutputText(obj.myPosition.Output() + " " + obj.cellIndex);
             if (obj.isClicked == true)
             {
                 obj.IsEnabled = false;
@@ -123,7 +146,9 @@ namespace GreatPriceDSGVO
                 obj.isClicked = true;
                 obj.IsEnabled = false;
             }
+            gameLogic.LoadQuestion(obj.cellIndex);
             CheckFinished();
+            ScoreText();
         }
 
         /// <summary>
@@ -136,7 +161,7 @@ namespace GreatPriceDSGVO
             for (int colIndex = 0; colIndex < 5; colIndex++)
             {
                 //we don't have to check the header for buttons
-                for (int rowIndex = 1; rowIndex < 5; rowIndex++)
+                for (int rowIndex = 1; rowIndex < 6; rowIndex++)
                 {
                     StackPanel currentElement = GetGridElement(contentGrid, rowIndex, colIndex);
                     foreach (var item in currentElement.Children)
@@ -157,6 +182,10 @@ namespace GreatPriceDSGVO
             if (btnList.Count == 0)
             {
                 OutputText("Spiel beendet");
+            }
+            else
+            {
+                //OutputText(btnList.Count.ToString());
             }
 
         }
@@ -197,6 +226,14 @@ namespace GreatPriceDSGVO
         public void OutputText(string text)
         {
             outputLabel.Content = text;
+        }
+
+        /// <summary>
+        /// displays the current points of the two groups
+        /// </summary>
+        public void ScoreText()
+        {
+            scoreLabel.Content = "Group 1: " + gameLogic.group1.GetPoints() + "\n" + "Group 2: " + gameLogic.group2.GetPoints();
         }
     }
 }

@@ -11,13 +11,15 @@ namespace GreatPriceDSGVO
     public partial class MainWindow : Window
     {
         GameLogic gameLogic;
-        Label scoreLabel;
+        Label scoreLabel, questionLabel, answerLabel;
+        XMLHandler questions;
         public MainWindow()
         {
             InitializeComponent();
             gameLogic = new GameLogic();
             InitializeGrid();
             gameLogic.StartGame();
+            questions = new XMLHandler("C:/Users/bjoern.MONKNET/source/repos/GreatPriceDSGVO/questions.xml");
         }
 
         private void InitializeGrid()
@@ -29,7 +31,7 @@ namespace GreatPriceDSGVO
             TextBlock textB;
             Button btn;
             int cellIndex = 0;
-            contentGrid.Margin = new Thickness(5);
+            contentGrid.Margin = new Thickness(100);
 
             for (int colIndex = 0; colIndex < 5; colIndex++)
             {
@@ -100,18 +102,40 @@ namespace GreatPriceDSGVO
                 }
             }
 
-            //Create and initialize Scoreboard
+            //create and initialize Scoreboard
             scoreLabel = new Label
             {
                 HorizontalAlignment = HorizontalAlignment.Right,
                 VerticalAlignment = VerticalAlignment.Top,
-                FontSize = 14,
+                FontSize = 40,
                 Margin = new Thickness(100)
             };
             ScoreText();
 
             //add the label to the grid
             mainGrid.Children.Add(scoreLabel);
+
+            //create and initialize label for question and answer
+            questionLabel = new Label
+            {
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Top,
+                FontSize = 32,
+                Margin = new Thickness(0, 250, 100, 0),
+                Content = "Question: "
+            };
+            answerLabel = new Label
+            {
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Top,
+                FontSize = 32,
+                Margin = new Thickness(0, 350, 100, 0),
+                Content = "Answer: "
+            };
+
+            //add the labels to the grid
+            mainGrid.Children.Add(questionLabel);
+            mainGrid.Children.Add(answerLabel);
 
             //add handlers for the correct and wrong button
             correctButton.ClickMode = ClickMode.Press;
@@ -125,12 +149,14 @@ namespace GreatPriceDSGVO
         {
             gameLogic.Wrong();
             ScoreText();
+            CheckFinished();
         }
 
         private void CorrectClicked(object sender, RoutedEventArgs e)
         {
             gameLogic.Correct();
             ScoreText();
+            CheckFinished();
         }
 
         void OnClick(object sender, RoutedEventArgs e)
@@ -146,9 +172,8 @@ namespace GreatPriceDSGVO
                 obj.isClicked = true;
                 obj.IsEnabled = false;
             }
-            gameLogic.LoadQuestion(obj.cellIndex);
-            CheckFinished();
-            ScoreText();
+            QuestionAnswerSet currentQuestion = questions.RetrieveQuestion(obj.myPosition, obj.cellIndex);
+            OutputQuestion(currentQuestion.GetQuestion());
         }
 
         /// <summary>
@@ -181,13 +206,24 @@ namespace GreatPriceDSGVO
             //check if all buttons were clicked
             if (btnList.Count == 0)
             {
-                OutputText("Spiel beendet");
+                int pointsG1 = gameLogic.group1.GetPoints();
+                int pointsG2 = gameLogic.group2.GetPoints();
+                if (pointsG1 == pointsG2)
+                {
+                    OutputText("Spiel beendet, Geichstand!");
+                }
+                else
+                {
+                    if (pointsG1 > pointsG2)
+                    {
+                        OutputText("Spiel beendet, Gruppe 1 gewinnt!");
+                    }
+                    else
+                    {
+                        OutputText("Spiel beendet, Gruppe 2 gewinnt!");
+                    }
+                }  
             }
-            else
-            {
-                //OutputText(btnList.Count.ToString());
-            }
-
         }
 
         /// <summary>
@@ -233,7 +269,25 @@ namespace GreatPriceDSGVO
         /// </summary>
         public void ScoreText()
         {
-            scoreLabel.Content = "Group 1: " + gameLogic.group1.GetPoints() + "\n" + "Group 2: " + gameLogic.group2.GetPoints();
+            scoreLabel.Content = "Group 1: " + gameLogic.group1.GetPoints() + " points\n" + "Group 2: " + gameLogic.group2.GetPoints() + " points";
+        }
+
+        /// <summary>
+        /// displays the question in the questionLabel
+        /// </summary>
+        /// <param name="question">question that should be displayed</param>
+        public void OutputQuestion(string question)
+        {
+            questionLabel.Content = "Question: " + question;
+        }
+
+        /// <summary>
+        /// displays the answer in the answerLabel
+        /// </summary>
+        /// <param name="answer">answer that should be displayed</param>
+        public void OutputAnswer(string answer)
+        {
+            answerLabel.Content = "Answer: " + answer;
         }
     }
 }

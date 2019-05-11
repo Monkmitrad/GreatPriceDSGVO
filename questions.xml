@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<questions>
+    <category1>
+        <question1>
+            <question> Erste Frage </question>
+            <answer> Erste Antwort </answer>
+        </question1>
+        <question2>
+            <question> Zweite Frage </question>
+            <answer> Zweite Antwort </answer>
+        </question2>
+		<question3>
+			<question> Dritte Frage </question>
+            <answer> Dritte Antwort </answer>
+		</question3>
+		<question4>
+			<question> Vierte Frage </question>
+            <answer> Vierte Antwort </answer>
+		</question4>
+		<question5>
+			<question> Fünfte Frage </question>
+            <answer> Fünfte Antwort </answer>
+		</question5>
+    </category1>
+    <category2>
+        <question1>
+            <question> Erste Frage </question>
+            <answer> Erste Antwort </answer>
+        </question1>
+        <question2>
+            <question> Zweite Frage </question>
+            <answer> Zweite Antwort </answer>
+        </question2>
+		<question3>
+			<question> Dritte Frage </question>
+            <answer> Dritte Antwort </answer>
+		</question3>
+		<question4>
+			<question> Vierte Frage </question>
+            <answer> Vierte Antwort </answer>
+		</question4>
+		<question5>
+			<question> Fünfte Frage </question>
+            <answer> Fünfte Antwort </answer>
+		</question5>
+    </category2>
+    <category3>
+        <question1>
+            <question> Erste Frage </question>
+            <answer> Erste Antwort </answer>
+        </question1>
+        <question2>
+            <question> Zweite Frage </question>
+            <answer> Zweite Antwort </answer>
+        </question2>
+		<question3>
+			<question> Dritte Frage </question>
+            <answer> Dritte Antwort </answer>
+		</question3>
+		<question4>
+			<question> Vierte Frage </question>
+            <answer> Vierte Antwort </answer>
+		</question4>
+		<question5>
+			<question> Fünfte Frage </question>
+            <answer> Fünfte Antwort </answer>
+		</question5>
+    </category3>
+    <category4>
+        <question1>
+            <question> Erste Frage </question>
+            <answer> Erste Antwort </answer>
+        </question1>
+        <question2>
+            <question> Zweite Frage </question>
+            <answer> Zweite Antwort </answer>
+        </question2>
+		<question3>
+			<question> Dritte Frage </question>
+            <answer> Dritte Antwort </answer>
+		</question3>
+		<question4>
+			<question> Vierte Frage </question>
+            <answer> Vierte Antwort </answer>
+		</question4>
+		<question5>
+			<question> Fünfte Frage </question>
+            <answer> Fünfte Antwort </answer>
+		</question5>
+    </category4>
+    <category5>
+        <question1>
+            <question> Erste Frage </question>
+            <answer> Erste Antwort </answer>
+        </question1>
+        <question2>
+            <question> Zweite Frage </question>
+            <answer> Zweite Antwort </answer>
+        </question2>
+		<question3>
+			<question> Dritte Frage </question>
+            <answer> Dritte Antwort </answer>
+		</question3>
+		<question4>
+			<question> Vierte Frage </question>
+            <answer> Vierte Antwort </answer>
+		</question4>
+		<question5>
+			<question> Fünfte Frage </question>
+            <answer> Fünfte Antwort </answer>
+		</question5>
+    </category5>
+</questions>

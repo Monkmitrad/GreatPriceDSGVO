@@ -19,8 +19,7 @@ namespace GreatPriceDSGVO
         /// Enum which contains to values for the two groups
         /// </summary>
         enum Groups { g1,g2 };
-        Groups nextGroup;
-        int currentQuestion;
+        Groups currentGroup;
 
         public void StartGame()
         {
@@ -32,24 +31,24 @@ namespace GreatPriceDSGVO
             if(groupSelect == 0)
             {
                 //Group 1 starts
-                nextGroup = Groups.g1;
+                currentGroup = Groups.g1;
             }
             else
             {
                 //Group 2 starts
-                nextGroup = Groups.g2;
+                currentGroup = Groups.g2;
             }
         }
 
         private void ChangeTurn()
         {
-            switch (nextGroup)
+            switch (currentGroup)
             {
                 case Groups.g1:
-                    nextGroup = Groups.g2;
+                    currentGroup = Groups.g2;
                     break;
                 case Groups.g2:
-                    nextGroup = Groups.g1;
+                    currentGroup = Groups.g1;
                     break;
             }
         }
@@ -57,7 +56,7 @@ namespace GreatPriceDSGVO
         //If you have a correct answer, own team will get the points
         public void Correct()
         {
-            switch (nextGroup)
+            switch (currentGroup)
             {
                 case Groups.g1:
                     group1.AddPoints(100);
@@ -72,7 +71,7 @@ namespace GreatPriceDSGVO
         //If you have a wrong answer, opponent team will get the points
         public void Wrong()
         {
-            switch (nextGroup)
+            switch (currentGroup)
             {
                 case Groups.g1:
                     group2.AddPoints(100);
@@ -82,11 +81,6 @@ namespace GreatPriceDSGVO
                     break;
             }
             ChangeTurn();
-        }
-
-        public void LoadQuestion(int questionNumber)
-        {
-            currentQuestion = questionNumber;
         }
     }
 }

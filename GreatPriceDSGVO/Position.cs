@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GreatPriceDSGVO
 {
-    class Position
+    public class Position
     {
         private readonly int colPos;
         private readonly int rowPos;
@@ -25,7 +25,7 @@ namespace GreatPriceDSGVO
 
         public String Output()
         {
-            return (colPos + " " + rowPos);
+            return (GetCol() + " " + GetRow());
         }
 
         public int GetCol()
